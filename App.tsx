@@ -1,29 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-// import MapView, { Marker } from 'react-native-maps';
-// import Geolocation from '@react-native-community/geolocation';
-// import MapViewDirections from 'react-native-maps-directions';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import MapScreen from './screens/MapScreen';
+import FormScreen from './screens/FormScreen';
+import { RootStackParamList } from './screens/types';
+
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
- 
   return (
-    <View style={styles.container}>
-      <MapScreen />
-     
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Form">
+        <Stack.Screen name="Form" component={FormScreen} />
+        <Stack.Screen name="Map" component={MapScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fafafa'
-  },
-  map: {
-    flex: 1,
-    backgroundColor: 'blue',
-  },
-});
 
 export default App;

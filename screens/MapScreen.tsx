@@ -6,8 +6,13 @@ import MapViewDirections from 'react-native-maps-directions';
 // import { PERMISSIONS, request } from 'react-native-permissions';
 import { Image } from 'react-native';
 import customMapStyle from './customMapStyle.json'; // importa tu estilo personalizado
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParamList } from './types';
 
-const MapScreen: React.FC = () => {
+type Props = StackScreenProps<RootStackParamList, 'Map'>;
+
+const MapScreen: React.FC<Props> = ({ route }) => {
+  const { myString } = route.params;
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
   const [distance, setDistance] = useState<number>(0);
@@ -43,6 +48,7 @@ const MapScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <Text>You passed the string: {myString}</Text>
       <View style={styles.mapContainer}>
       <MapView
         customMapStyle={customMapStyle} 
