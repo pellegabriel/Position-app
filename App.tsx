@@ -13,6 +13,8 @@ const App: React.FC = () => {
     // if (hasLocationPermission) {
       Geolocation.getCurrentPosition(
           (position) => {
+            console.log(position, 'funciono');
+            setLatitude(position.coords.latitude)
             setLongitude(position.coords.longitude)
           },
           (error) => {
