@@ -6,8 +6,18 @@ import MapViewDirections from 'react-native-maps-directions';
 // import { PERMISSIONS, request } from 'react-native-permissions';
 import { Image } from 'react-native';
 import customMapStyle from './customMapStyle.json'; // importa tu estilo personalizado
+import { RouteProp } from '@react-navigation/native';
+import { RootStackParamList } from '../types'; // replace with your actual file path
 
-const MapScreen: React.FC = () => {
+type MapScreenRouteProp = RouteProp<RootStackParamList, 'Map'>;
+
+type Props = {
+  route: MapScreenRouteProp;
+};
+
+const MapScreen: React.FC<Props> = ({ route }) => {
+  const vehicleData = route.params.vehicleData;
+  console.log(vehicleData, 'data del formulario')
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
   const [distance, setDistance] = useState<number>(0);
@@ -43,6 +53,12 @@ const MapScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <View>
+        <Text style={styles.vehicleData}>Vehicle Model: {vehicleData.model}</Text>
+        <Text style={styles.vehicleData}>Vehicle Color: {vehicleData.color}</Text>
+        <Text style={styles.vehicleData}>Vehicle Patent: {vehicleData.carPatent}</Text>
+
+      </View>
       <View style={styles.mapContainer}>
       <MapView
         customMapStyle={customMapStyle} 
@@ -101,9 +117,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
-    padding: 20  },
+    paddingVertical: 50,
+    paddingHorizontal: 20  },
   mapContainer: {
-    flex: 9,
+    marginTop: 10,
+    flex: 5,
     borderRadius: 10, 
     overflow: 'hidden',
     borderWidth: 2,
@@ -119,6 +137,9 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     marginLeft: 20
   },
+  vehicleData: {
+    padding: 5
+  }
 });
 
 export default MapScreen;
