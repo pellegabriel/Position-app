@@ -3,11 +3,10 @@ import { View, StyleSheet, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import MapViewDirections from 'react-native-maps-directions';
-// import { PERMISSIONS, request } from 'react-native-permissions';
 import { Image } from 'react-native';
-import customMapStyle from './customMapStyle.json'; // importa tu estilo personalizado
+import customMapStyle from './customMapStyle.json'; 
 import { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../types'; // replace with your actual file path
+import { RootStackParamList } from '../types'; 
 
 type MapScreenRouteProp = RouteProp<RootStackParamList, 'Map'>;
 

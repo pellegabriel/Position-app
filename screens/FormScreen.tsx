@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Button, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { RootStackParamList } from '../types'; // asumiendo que has definido tus rutas en un archivo 'types.ts'
+import { RootStackParamList } from '../types';
 
 
 const FormScreen = ({ navigation }: StackScreenProps<RootStackParamList, 'Form'>) => {
@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'violet',
     padding: 10,
     borderRadius: 5,
-    alignItems: 'center', // centra el texto horizontalmente
-    justifyContent: 'center', // centra el texto verticalmente
+    alignItems: 'center', 
+    justifyContent: 'center', 
   },
   buttonText: {
     color: 'white',
