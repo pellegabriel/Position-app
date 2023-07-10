@@ -2,7 +2,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { RootStackParamList } from './types'; // reemplace con su ruta de archivo real
+import { RootStackParamList } from './types'; 
 import MapScreen from './screens/MapScreen';
 import FormScreen from './screens/FormScreen';
 

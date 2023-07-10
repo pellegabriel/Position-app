@@ -3,11 +3,10 @@ import { View, StyleSheet, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import MapViewDirections from 'react-native-maps-directions';
-// import { PERMISSIONS, request } from 'react-native-permissions';
 import { Image } from 'react-native';
-import customMapStyle from './customMapStyle.json'; // importa tu estilo personalizado
+import customMapStyle from './customMapStyle.json'; 
 import { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../types'; // replace with your actual file path
+import { RootStackParamList } from '../types'; 
 
 type MapScreenRouteProp = RouteProp<RootStackParamList, 'Map'>;
 
@@ -33,7 +32,6 @@ const MapScreen: React.FC<Props> = ({ route }) => {
             setLongitude(position.coords.longitude)
           },
           (error) => {
-            // See error code charts below.
             console.log(error.code, error.message, 'error');
           },
           {
@@ -47,9 +45,6 @@ const MapScreen: React.FC<Props> = ({ route }) => {
     handleGeolocation()
   }, []);
 
-  // if (latitude === null || longitude === null) {
-  //   return null;
-  // }
 
   return (
     <View style={styles.container}>
