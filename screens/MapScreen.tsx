@@ -7,6 +7,9 @@ import { Image } from 'react-native';
 import customMapStyle from './customMapStyle.json'; 
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../types'; 
+// import firebase from '@react-native-firebase/app';
+import database from '@react-native-firebase/database';
+
 
 type MapScreenRouteProp = RouteProp<RootStackParamList, 'Map'>;
 
@@ -16,12 +19,11 @@ type Props = {
 
 const MapScreen: React.FC<Props> = ({ route }) => {
   const vehicleData = route.params.vehicleData;
-  console.log(vehicleData, 'data del formulario')
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
+  const [destination, setDestination] = useState<{ latitude: number; longitude: number; }>();
   const [distance, setDistance] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);  
-  const destination = { latitude: -34.92158951393353, longitude: -57.952644470960294 }; 
   const GOOGLE_MAPS_APIKEY = 'AIzaSyBBVk4iIjHSYXgGjZA08-VKCCCbm03Z2is'; 
   const handleGeolocation = () => {
     // if (hasLocationPermission) {
@@ -42,7 +44,15 @@ const MapScreen: React.FC<Props> = ({ route }) => {
     // }
   }
   useEffect(() => {
-    handleGeolocation()
+    handleGeolocation();
+    
+    const userRef = database().ref('/user/address');
+    userRef.on('value', snapshot => {
+      const data = snapshot.val();
+      if (data) {
+        setDestination({ latitude: data.coordinate.latitude, longitude: data.coordinate.longitude });
+      }
+    });
   }, []);
 
 
@@ -77,13 +87,17 @@ const MapScreen: React.FC<Props> = ({ route }) => {
           />
         </Marker>
         <Marker
-          coordinate={destination}
+          coordinate={{
+            latitude: destination?.latitude || 0,
+            longitude: destination?.longitude || 0,
+          }}
         >
           <Image 
             source={require('../icons/house.png')} 
             style={{height: 50, width: 50}} 
           />
   </Marker>
+  {destination && (
         <MapViewDirections
           origin={{ latitude: latitude, longitude: longitude }}
           destination={destination}
@@ -95,8 +109,8 @@ const MapScreen: React.FC<Props> = ({ route }) => {
             setDistance(result.distance);
             setDuration(result.duration);
           }}
-          
         />
+      )}
       </MapView>
       </View>
 

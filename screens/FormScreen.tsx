@@ -2,13 +2,31 @@ import React, { useState } from 'react';
 import { View, Button, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../types';
-
+import firebase from '@react-native-firebase/app';
+import database from '@react-native-firebase/database';
 
 const FormScreen = ({ navigation }: StackScreenProps<RootStackParamList, 'Form'>) => {
-  const [vehicleData, setVehicleData] = useState({ model: '', color: '' ,carPatent: ''});
+  const [vehicleData, setVehicleData] = useState({ model: '', color: '', carPatent: '', address: ''});
 
   const handleSubmit = () => {
+    geocodeAddress(vehicleData.address);
     navigation.navigate('Map', { vehicleData });
+  }
+
+  const geocodeAddress = (address: string) => {
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=YOUR_GOOGLE_API_KEY`)
+    .then(response => response.json())
+    .then(data => {
+      const coordinate = data.results[0].geometry.location;
+      const userRef = database().ref('/user/address');
+      userRef.set({
+        value: address,
+        coordinate: {
+          latitude: coordinate.lat,
+          longitude: coordinate.lng
+        }
+      });
+    });
   }
 
   return (
@@ -31,6 +49,12 @@ const FormScreen = ({ navigation }: StackScreenProps<RootStackParamList, 'Form'>
         value={vehicleData.carPatent}
         onChangeText={text => setVehicleData(prevState => ({...prevState, carPatent: text}))}
       />
+      <TextInput
+        style={styles.input}
+        placeholder="Address"
+        value={vehicleData.address}
+        onChangeText={text => setVehicleData(prevState => ({...prevState, address: text}))}
+      />
       <View >
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
             <Text style={styles.buttonText}>Listo</Text>
@@ -45,7 +69,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: 'center',
-     backgroundColor: 'black',
+    backgroundColor: 'black',
 
   },
   input: {
