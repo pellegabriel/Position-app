@@ -1722,18 +1722,18 @@
   resolved "https://registry.npmjs.org/@react-native-community/geolocation/-/geolocation-3.0.6.tgz"
   integrity sha512-+iidKFgw1HxCJSHVnlywAKu6uerdpDAKTXLRnlsUdhgqtgTiIixb496Z267iPVFmIO1bp4lOU6UiwzmvcyXdbg==
 
-"@react-native-firebase/app@^18.1.0", "@react-native-firebase/app@18.1.0":
-  version "18.1.0"
-  resolved "https://registry.npmjs.org/@react-native-firebase/app/-/app-18.1.0.tgz"
-  integrity sha512-GZSlkNjSZlyB6I2t/5MmD9uDvnteyPOzvYNshaffS/hzRK6LL+3xYTnxqwPl6Kntm8z28FdaQM06OIlkPGQ3+g==
+"@react-native-firebase/app@^18.1.0", "@react-native-firebase/app@18.2.0":
+  version "18.2.0"
+  resolved "https://registry.npmjs.org/@react-native-firebase/app/-/app-18.2.0.tgz"
+  integrity sha512-enVr+2Wl1LfYBb0TT7SI0L7RSXzOX25dPUVREw5W3ip05CTuJv10Nl7ffk7AfB53SU9IhPz5zJMIWncYQNodug==
   dependencies:
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/database@^18.1.0":
-  version "18.1.0"
-  resolved "https://registry.npmjs.org/@react-native-firebase/database/-/database-18.1.0.tgz"
-  integrity sha512-PXCC4UGIo3Eg2aDFlfKlSAqE+VuZIPeTaFvAT/vIMWlD3PxSDly3iJN/pVE88XnQxr7VO2PUYg0x25Mpmml00w==
+"@react-native-firebase/database@^18.2.0":
+  version "18.2.0"
+  resolved "https://registry.npmjs.org/@react-native-firebase/database/-/database-18.2.0.tgz"
+  integrity sha512-5hQXHUhdRYmUGP0dHKCxun2zI8+dRd8lso0W1V3AoJ00TzlxmFPrMbvD4GDK/16jxRO9dPRkClPNsK+CiB6qFA==
 
 "@react-native/assets-registry@^0.72.0":
   version "0.72.0"

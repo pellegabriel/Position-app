@@ -6,6 +6,20 @@ import MapScreen from './screens/MapScreen';
 import FormScreen from './screens/FormScreen';
 import firebase from '@react-native-firebase/app';
 
+const firebaseConfig = {
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
