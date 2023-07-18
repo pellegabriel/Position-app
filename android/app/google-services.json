@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "746433084236",
+    "firebase_url": "https://teiki-55f38-default-rtdb.firebaseio.com",
+    "project_id": "teiki-55f38",
+    "storage_bucket": "teiki-55f38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746433084236:android:5d913450ee77df4b1c6de9",
+        "android_client_info": {
+          "package_name": "app_uso.uno1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "746433084236-c12qujj328inic65oojqjrdq939nvm8u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlPRw7kl8GbKDWJQWB1mwS5YXNU8ZovjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746433084236-c12qujj328inic65oojqjrdq939nvm8u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

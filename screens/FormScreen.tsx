@@ -1,15 +1,36 @@
 import React, { useState } from 'react';
-import { View, Button, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { RootStackParamList } from '../types';
+import { RootStackParamList } from '../android/app/src/types/types';
+import Geocoder from 'react-native-geocoding'; 
+import {GOOGLE_MAPS_APIKEY} from '@env'
 
+Geocoder.init(GOOGLE_MAPS_APIKEY); 
 
 const FormScreen = ({ navigation }: StackScreenProps<RootStackParamList, 'Form'>) => {
-  const [vehicleData, setVehicleData] = useState({ model: '', color: '' ,carPatent: ''});
+  const [vehicleData, setVehicleData] = useState({ model: '', color: '' ,carPatent: '', address: ''});
 
   const handleSubmit = () => {
-    navigation.navigate('Map', { vehicleData });
+    Geocoder.from(vehicleData.address)
+      .then(json => {
+        const { lat: latitude, lng: longitude } = json.results[0].geometry.location;
+  
+        const updatedVehicleData = {
+          ...vehicleData, 
+          address: {
+            value: vehicleData.address,
+            coordinates: {
+              latitude,
+              longitude
+            }
+          }
+        };
+  
+        navigation.navigate('Map', { vehicleData: updatedVehicleData });
+      })
+      .catch(error => console.warn(error));
   }
+  
 
   return (
     <View style={styles.container}>
@@ -31,6 +52,12 @@ const FormScreen = ({ navigation }: StackScreenProps<RootStackParamList, 'Form'>
         value={vehicleData.carPatent}
         onChangeText={text => setVehicleData(prevState => ({...prevState, carPatent: text}))}
       />
+      <TextInput
+        style={styles.input}
+        placeholder="Address"
+        value={vehicleData.address}
+        onChangeText={text => setVehicleData(prevState => ({...prevState, address: text}))}
+      />
       <View >
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
             <Text style={styles.buttonText}>Listo</Text>
@@ -45,8 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: 'center',
-     backgroundColor: 'black',
-
+    backgroundColor: 'black',
   },
   input: {
     height: 40,
@@ -61,7 +87,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
-    justifyContent: 'center', 
+    justifyContent: 'center',
   },
   buttonText: {
     color: 'white',

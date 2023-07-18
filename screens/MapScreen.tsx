@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker , Callout} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import MapViewDirections from 'react-native-maps-directions';
 import { Image } from 'react-native';
 import customMapStyle from './customMapStyle.json'; 
 import { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../types'; 
-
+import { RootStackParamList } from '../android/app/src/types/types'; 
+import {GOOGLE_MAPS_APIKEY} from '@env'
 type MapScreenRouteProp = RouteProp<RootStackParamList, 'Map'>;
 
 type Props = {
@@ -21,8 +21,7 @@ const MapScreen: React.FC<Props> = ({ route }) => {
   const [longitude, setLongitude] = useState<number>(0);
   const [distance, setDistance] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);  
-  const destination = { latitude: -34.92158951393353, longitude: -57.952644470960294 }; 
-  const GOOGLE_MAPS_APIKEY = 'AIzaSyBBVk4iIjHSYXgGjZA08-VKCCCbm03Z2is'; 
+  const destination = vehicleData.address.coordinates; 
   const handleGeolocation = () => {
     // if (hasLocationPermission) {
       Geolocation.getCurrentPosition(
