@@ -4,33 +4,55 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../android/app/src/types/types';
 import Geocoder from 'react-native-geocoding'; 
 import {GOOGLE_MAPS_APIKEY} from '@env'
+import firestore from '@react-native-firebase/firestore';
 
 Geocoder.init(GOOGLE_MAPS_APIKEY); 
 
 const FormScreen = ({ navigation }: StackScreenProps<RootStackParamList, 'Form'>) => {
-  const [vehicleData, setVehicleData] = useState({ model: '', color: '' ,carPatent: '', address: ''});
+  const [vehicleData, setVehicleData] = useState({
+    model: '',
+    color: '',
+    carPatent: '',
+    address: {
+      value: '',
+      coordinates: {
+        latitude: 0,
+        longitude: 0,
+      },
+    },
+  });
 
   const handleSubmit = () => {
-    Geocoder.from(vehicleData.address)
+    Geocoder.from(vehicleData.address.value)
       .then(json => {
-        const { lat: latitude, lng: longitude } = json.results[0].geometry.location;
-  
-        const updatedVehicleData = {
-          ...vehicleData, 
-          address: {
-            value: vehicleData.address,
+        var location = json.results[0].geometry.location;
+        const updatedAddress = {
+            value: vehicleData.address.value,
             coordinates: {
-              latitude,
-              longitude
+              latitude: location.lat,
+              longitude: location.lng,
             }
-          }
         };
-  
-        navigation.navigate('Map', { vehicleData: updatedVehicleData });
+        
+        setVehicleData({...vehicleData, address: updatedAddress});
+
+        // Aquí es donde guardas los datos en Firestore
+        firestore()
+          .collection('vehicles')
+          .add(updatedAddress)
+          .then(() => {
+            console.log('Address added!');
+            navigation.navigate('Map', { vehicleData: {...vehicleData, address: updatedAddress} });
+          })
+          .catch(error => {
+            console.error("Error writing document: ", error);
+          });
       })
       .catch(error => console.warn(error));
   }
-  
+
+  // ...
+
 
   return (
     <View style={styles.container}>
@@ -55,8 +77,8 @@ const FormScreen = ({ navigation }: StackScreenProps<RootStackParamList, 'Form'>
       <TextInput
         style={styles.input}
         placeholder="Address"
-        value={vehicleData.address}
-        onChangeText={text => setVehicleData(prevState => ({...prevState, address: text}))}
+        value={vehicleData.address.value}
+        onChangeText={text => setVehicleData(prevState => ({...prevState, address: {...prevState.address, value: text}}))}
       />
       <View >
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
