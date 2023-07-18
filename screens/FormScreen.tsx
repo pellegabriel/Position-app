@@ -39,7 +39,7 @@ const FormScreen = ({ navigation }: StackScreenProps<RootStackParamList, 'Form'>
         // Aquí es donde guardas los datos en Firestore
         firestore()
           .collection('vehicles')
-          .add(updatedAddress)
+          .add(vehicleData)
           .then(() => {
             console.log('Address added!');
             navigation.navigate('Map', { vehicleData: {...vehicleData, address: updatedAddress} });
