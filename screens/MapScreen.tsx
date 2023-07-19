@@ -14,6 +14,13 @@ type Props = {
   route: MapScreenRouteProp;
 };
 
+type Region = {
+  latitude: number;
+  longitude: number;
+  latitudeDelta: number;
+  longitudeDelta: number;
+};
+
 const MapScreen: React.FC<Props> = ({ route }) => {
   const vehicleData = route.params.vehicleData;
   console.log(vehicleData, 'data del formulario')
@@ -21,15 +28,22 @@ const MapScreen: React.FC<Props> = ({ route }) => {
   const [longitude, setLongitude] = useState<number>(0);
   const [distance, setDistance] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);  
-  const destination = vehicleData.address.coordinates; 
+  const [initialRegion, setInitialRegion] = useState<Region | undefined>(undefined);  const destination = vehicleData.address.coordinates; 
   const handleGeolocation = () => {
-    // if (hasLocationPermission) {
       Geolocation.getCurrentPosition(
           (position) => {
             console.log(position, 'funciono');
             setLatitude(position.coords.latitude)
             setLongitude(position.coords.longitude)
+            setInitialRegion({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+
+            })
           },
+       
           (error) => {
             console.log(error.code, error.message, 'error');
           },
@@ -37,9 +51,10 @@ const MapScreen: React.FC<Props> = ({ route }) => {
             enableHighAccuracy: false,
             timeout: 5000,
             maximumAge: 10000
-        }      );
-    // }
+        }      
+        );
   }
+
   useEffect(() => {
     handleGeolocation()
   }, []);
@@ -57,12 +72,7 @@ const MapScreen: React.FC<Props> = ({ route }) => {
       <MapView
         customMapStyle={customMapStyle} 
         style={styles.map}
-        initialRegion={{
-          latitude: -34.92158951393353,
-          longitude: -57.952644470960294,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+        initialRegion={initialRegion}
       >
         <Marker
           coordinate={{
