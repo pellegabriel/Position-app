@@ -5,6 +5,11 @@ export type VehicleData = {
   address: Address;    
 };
 
+export type CompanyData = {
+  name: string;  
+  address: Address;    
+};
+
 export type Address = {
   value: string;    
   coordinates: {
@@ -13,7 +18,19 @@ export type Address = {
   }
 };
 
+type MarkerData = {
+  title: string;
+  coordinate: {
+    latitude: number;
+    longitude: number;
+  };
+};
+
 export type RootStackParamList = {
+  Initial: undefined;
+  FormCompany: undefined;
   Form: undefined;
   Map: { vehicleData: VehicleData };
+  MapCompany: { companyData: CompanyData }
+  Details: { marker: MarkerData };
 };
