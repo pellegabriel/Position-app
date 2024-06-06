@@ -1,5 +1,36 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Position App
 
+This is a project that allows users to locate their position on a map using TypeScript, Java, and Objective-C.
+
+# Table of Contents
+* Features
+* Getting Started
+* Installation
+* Usage
+* Folder Structure
+* Contributing
+* License
+
+# Features
+* **Location Tracking**: Allows users to locate their current position on the map.
+* **Cross-Platform**: Supports both Android and iOS platforms.
+* **Zoom and Pan**: Provides zoom and pan functionality for better map navigation.
+
+# Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+# Prerequisites
+* Node.js (v14 or later)
+* npm (v6 or later) or yarn (v1.22 or later)
+* Xcode for iOS development
+* Android Studio for Android development
+
+# Installation
+Clone the repository:
+
+```bash
+git clone https://github.com/your-username/position-app.git
+cd position-app
 # Getting Started
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
